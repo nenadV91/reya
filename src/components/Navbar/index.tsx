@@ -4,6 +4,7 @@ import { Dashboard } from "@mui/icons-material";
 export function Navbar() {
   return (
     <AppBar
+      elevation={0}
       variant="outlined"
       position="fixed"
       sx={{ zIndex: 2000, borderRight: "none", borderLeft: "none" }}

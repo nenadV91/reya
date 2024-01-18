@@ -14,6 +14,9 @@ const theme = createTheme({
   },
   typography: {
     fontFamily: roboto.style.fontFamily,
+    body1: {
+      fontWeight: 300,
+    },
   },
   components: {
     MuiAlert: {
