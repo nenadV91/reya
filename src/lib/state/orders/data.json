@@ -1,0 +1,35 @@
+[
+  {
+    "id": 1,
+    "market": "BTC",
+    "action": "short",
+    "orderType": "market",
+    "size": 1000.3,
+    "executionPrice": "45000",
+    "rpnl": 305,
+    "fees": 50,
+    "time": 1705536939706
+  },
+  {
+    "id": 2,
+    "market": "ETH",
+    "action": "liquidation",
+    "orderType": "market",
+    "size": 1000.3,
+    "executionPrice": 800,
+    "rpnl": 239.4,
+    "fees": 389,
+    "time": 1705536939706
+  },
+  {
+    "id": 3,
+    "market": "ETC",
+    "action": "liquidation",
+    "orderType": "market",
+    "size": 1000.3,
+    "executionPrice": 800,
+    "rpnl": 239.4,
+    "fees": 389,
+    "time": 1705536939706
+  }
+]
