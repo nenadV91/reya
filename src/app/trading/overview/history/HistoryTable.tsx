@@ -67,10 +67,15 @@ export function HistoryTable({ orders }: Props) {
                 component="th"
                 scope="row"
               >
-                <Typography mr={2} variant="body1">
+                <Typography component={"span"} mr={2} variant="body1">
                   {row.market}
                 </Typography>
-                <Typography sx={{ opacity: 0.6 }} fontSize={10} variant="body2">
+                <Typography
+                  component={"span"}
+                  sx={{ opacity: 0.6 }}
+                  fontSize={10}
+                  variant="body2"
+                >
                   {row.pool}
                 </Typography>
               </StyledTableCell>

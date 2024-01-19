@@ -56,7 +56,9 @@ export default function History() {
           px: 2,
         }}
       >
-        <Typography variant="body1">Trade History</Typography>
+        <Typography component={"span"} variant="body1">
+          Trade History
+        </Typography>
 
         <Tabs
           value={selected}
@@ -79,7 +81,7 @@ export default function History() {
       <CustomTabPanel value={selected} index={0}>
         <HistoryTable orders={visibleRows} />
 
-        <TablePagination
+        {/* <TablePagination
           size="small"
           rowsPerPageOptions={[3, 6]}
           component="div"
@@ -88,7 +90,7 @@ export default function History() {
           page={page}
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
-        />
+        /> */}
       </CustomTabPanel>
 
       <CustomTabPanel value={selected} index={1}>
