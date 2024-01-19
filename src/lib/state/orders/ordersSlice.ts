@@ -22,12 +22,15 @@ export const orders = createSlice({
   reducers: {
     loadOrders: (state, action: PayloadAction<Order[]>) => {
       state = action.payload;
+      return state;
     },
     addOrder: (state, action: PayloadAction<Order>) => {
       state.push(action.payload);
+      return state;
     },
     removeOrder: (state, action: PayloadAction<Order>) => {
       state = state.filter((o) => o.id !== action.payload.id);
+      return state;
     },
     reset: () => initialState,
   },

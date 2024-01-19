@@ -4,11 +4,14 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import { useState, SyntheticEvent, useMemo } from "react";
+import { useState, SyntheticEvent, useMemo, useCallback } from "react";
 import { CustomTabPanel } from "./CustomTabpanel";
 import { useAppSelector, useAppDispatch } from "@/lib/state/hooks";
 import { HistoryTable } from "./HistoryTable";
 import { TablePagination } from "@mui/material";
+import { Order } from "@/lib/state/orders/ordersSlice";
+import { DeleteOrderModal } from "./DeleteOrderModal";
+import { removeOrder } from "@/lib/state/orders/ordersSlice";
 
 function a11yProps(index: number) {
   return {
@@ -18,14 +21,28 @@ function a11yProps(index: number) {
 }
 
 export default function History() {
-  const [selected, setSelected] = useState(0);
+  const [activeTab, setActiveTab] = useState(0);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(3);
+  const [selectedRow, setSelectedRow] = useState<null | Order>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const dispatch = useAppDispatch();
+
+  const handleDeleteModalOpen = (order: Order) => {
+    setSelectedRow(order);
+    setIsModalOpen(true);
+  };
+
+  const handleDeleteModalClose = () => {
+    setSelectedRow(null);
+    setIsModalOpen(false);
+  };
 
   const orders = useAppSelector((state) => state.ordersReducer);
 
   const handleChange = (event: SyntheticEvent, newValue: number) => {
-    setSelected(newValue);
+    setActiveTab(newValue);
   };
 
   const handleChangePage = (event: unknown, newPage: number) => {
@@ -44,6 +61,13 @@ export default function History() {
     [orders, page, rowsPerPage]
   );
 
+  const handleDeletePosition = useCallback(() => {
+    if (selectedRow) {
+      dispatch(removeOrder(selectedRow));
+      handleDeleteModalClose();
+    }
+  }, [dispatch, selectedRow]);
+
   return (
     <Box sx={{ width: "100%" }}>
       <Box
@@ -61,7 +85,7 @@ export default function History() {
         </Typography>
 
         <Tabs
-          value={selected}
+          value={activeTab}
           onChange={handleChange}
           aria-label="Trade history tabs"
           sx={{ marginLeft: "auto", textTransform: "unset" }}
@@ -78,8 +102,11 @@ export default function History() {
           />
         </Tabs>
       </Box>
-      <CustomTabPanel value={selected} index={0}>
-        <HistoryTable orders={visibleRows} />
+      <CustomTabPanel value={activeTab} index={0}>
+        <HistoryTable
+          handleDeleteModalOpen={handleDeleteModalOpen}
+          orders={visibleRows}
+        />
 
         <TablePagination
           size="small"
@@ -91,9 +118,16 @@ export default function History() {
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
+
+        <DeleteOrderModal
+          open={isModalOpen}
+          selectedValue={selectedRow}
+          onDelete={handleDeletePosition}
+          onClose={handleDeleteModalClose}
+        />
       </CustomTabPanel>
 
-      <CustomTabPanel value={selected} index={1}>
+      <CustomTabPanel value={activeTab} index={1}>
         Deposits and Withdrawals
       </CustomTabPanel>
     </Box>

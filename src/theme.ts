@@ -1,6 +1,7 @@
 "use client";
 import { Roboto } from "next/font/google";
 import { createTheme } from "@mui/material/styles";
+import { colors, darken } from "@mui/material";
 
 const roboto = Roboto({
   weight: ["300", "400", "500", "700"],
@@ -19,6 +20,15 @@ const theme = createTheme({
     },
   },
   components: {
+    MuiDialog: {
+      styleOverrides: {
+        paper: {
+          background: darken(colors.grey[900], 0.3),
+          border: `1px solid ${colors.grey[600]}`,
+          borderRadius: "20px",
+        },
+      },
+    },
     MuiAlert: {
       styleOverrides: {
         root: ({ ownerState }) => ({

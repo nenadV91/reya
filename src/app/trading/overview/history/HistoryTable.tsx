@@ -19,6 +19,7 @@ import moment from "moment";
 
 type Props = {
   orders: Order[];
+  handleDeleteModalOpen: (order: Order) => void;
 };
 
 const StyledTableCell = styled(TableCell)`
@@ -31,7 +32,7 @@ const StyledTableRow = styled(TableRow)`
   margin-bottom: 2px;
 `;
 
-export function HistoryTable({ orders }: Props) {
+export function HistoryTable({ orders, handleDeleteModalOpen }: Props) {
   const theme = useTheme();
 
   return (
@@ -101,7 +102,10 @@ export function HistoryTable({ orders }: Props) {
                 {moment(row.time).fromNow()}
               </StyledTableCell>
               <StyledTableCell align="right">
-                <IconButton size="small">
+                <IconButton
+                  onClick={() => handleDeleteModalOpen(row)}
+                  size="small"
+                >
                   <CloseSharp sx={{ fontSize: "1rem" }} />
                 </IconButton>
               </StyledTableCell>
