@@ -1,3 +1,7 @@
 a {
   text-decoration: none;
 }
+
+[data-rk] * {
+  font-weight: 300 !important;
+}

@@ -1,6 +1,7 @@
-import { AppBar, Toolbar } from "@mui/material";
+import { AppBar, Box, Toolbar } from "@mui/material";
 import { Dashboard } from "@mui/icons-material";
 import { Links } from "./Links";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 export function Navbar() {
   return (
@@ -16,6 +17,10 @@ export function Navbar() {
         />
 
         <Links />
+
+        <Box ml={"auto"}>
+          <ConnectButton />
+        </Box>
       </Toolbar>
     </AppBar>
   );

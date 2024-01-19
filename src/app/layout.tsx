@@ -5,9 +5,11 @@ import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { Box } from "@mui/material";
 
+import "@rainbow-me/rainbowkit/styles.css";
 import "./globals.css";
 import theme from "@/theme";
 import { Navbar } from "@/components/Navbar";
+import { MyRainbowKitProvider } from "@/components/RainbowKitProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,16 +26,18 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <StoreProvider>
-          <ThemeProvider theme={theme}>
-            <CssBaseline />
-            <Navbar />
+        <MyRainbowKitProvider>
+          <StoreProvider>
+            <ThemeProvider theme={theme}>
+              <CssBaseline />
+              <Navbar />
 
-            <Box component={"main"} sx={{ flexGrow: 1, mt: "64px", p: 2 }}>
-              {children}
-            </Box>
-          </ThemeProvider>
-        </StoreProvider>
+              <Box component={"main"} sx={{ flexGrow: 1, mt: "64px", p: 2 }}>
+                {children}
+              </Box>
+            </ThemeProvider>
+          </StoreProvider>
+        </MyRainbowKitProvider>
       </body>
     </html>
   );
