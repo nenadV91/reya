@@ -4,10 +4,11 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import { useState, SyntheticEvent } from "react";
+import { useState, SyntheticEvent, useMemo } from "react";
 import { CustomTabPanel } from "./CustomTabpanel";
 import { useAppSelector, useAppDispatch } from "@/lib/state/hooks";
 import { HistoryTable } from "./HistoryTable";
+import { TablePagination } from "@mui/material";
 
 function a11yProps(index: number) {
   return {
@@ -18,12 +19,30 @@ function a11yProps(index: number) {
 
 export default function History() {
   const [selected, setSelected] = useState(0);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(3);
 
   const orders = useAppSelector((state) => state.ordersReducer);
 
   const handleChange = (event: SyntheticEvent, newValue: number) => {
     setSelected(newValue);
   };
+
+  const handleChangePage = (event: unknown, newPage: number) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+  const visibleRows = useMemo(
+    () => orders.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage),
+    [orders, page, rowsPerPage]
+  );
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -58,7 +77,18 @@ export default function History() {
         </Tabs>
       </Box>
       <CustomTabPanel value={selected} index={0}>
-        <HistoryTable orders={orders} />
+        <HistoryTable orders={visibleRows} />
+
+        <TablePagination
+          size="small"
+          rowsPerPageOptions={[3, 6]}
+          component="div"
+          count={orders.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
       </CustomTabPanel>
 
       <CustomTabPanel value={selected} index={1}>

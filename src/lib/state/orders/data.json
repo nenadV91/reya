@@ -70,5 +70,29 @@
     "rpnl": 239.4,
     "fees": 389,
     "time": 1705536939706
+  },
+  {
+    "id": 7,
+    "market": "DAI",
+    "pool": "Perpetual - LP Pool",
+    "action": "liquidation",
+    "orderType": "market",
+    "size": 1000.3,
+    "executionPrice": 800,
+    "rpnl": -239.4,
+    "fees": 389,
+    "time": 1705536939706
+  },
+  {
+    "id": 8,
+    "market": "GNO",
+    "pool": "Perpetual - LP Pool",
+    "action": "liquidation",
+    "orderType": "market",
+    "size": 1000.3,
+    "executionPrice": 800,
+    "rpnl": 239.4,
+    "fees": 389,
+    "time": 1705536939706
   }
 ]
