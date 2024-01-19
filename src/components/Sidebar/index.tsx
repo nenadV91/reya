@@ -14,6 +14,7 @@ import GridViewOutlinedIcon from "@mui/icons-material/GridViewOutlined";
 import LensBlurOutlinedIcon from "@mui/icons-material/LensBlurOutlined";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Hidden } from "@mui/material";
 
 const drawerWidth = 240;
 
@@ -48,64 +49,69 @@ export function Sidebar() {
   const pathname = usePathname();
 
   return (
-    <Drawer
-      variant="permanent"
-      sx={{
-        width: drawerWidth,
-        flexShrink: 0,
-        [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: "border-box" },
-      }}
-    >
-      <Toolbar />
-      <Box sx={{ overflow: "auto" }}>
-        <List>
-          {routes.map(({ name, route, Icon, subroutes }) => {
-            return (
-              <div key={route}>
-                <Link
-                  key={route}
-                  href={subroutes?.length ? "#" : route}
-                  style={{
-                    color: "white",
-                    opacity: pathname.startsWith(route) ? 1 : 0.6,
-                  }}
-                >
-                  <ListItem disablePadding>
-                    <ListItemButton>
-                      <ListItemIcon>
-                        <Icon />
-                      </ListItemIcon>
-                      <ListItemText primary={name} />
-                    </ListItemButton>
-                  </ListItem>
-                </Link>
+    <Hidden smDown>
+      <Drawer
+        variant="permanent"
+        sx={{
+          width: drawerWidth,
+          flexShrink: 0,
+          [`& .MuiDrawer-paper`]: {
+            width: drawerWidth,
+            boxSizing: "border-box",
+          },
+        }}
+      >
+        <Toolbar />
+        <Box sx={{ overflow: "auto" }}>
+          <List>
+            {routes.map(({ name, route, Icon, subroutes }) => {
+              return (
+                <div key={route}>
+                  <Link
+                    key={route}
+                    href={subroutes?.length ? "#" : route}
+                    style={{
+                      color: "white",
+                      opacity: pathname.startsWith(route) ? 1 : 0.6,
+                    }}
+                  >
+                    <ListItem disablePadding>
+                      <ListItemButton>
+                        <ListItemIcon>
+                          <Icon />
+                        </ListItemIcon>
+                        <ListItemText primary={name} />
+                      </ListItemButton>
+                    </ListItem>
+                  </Link>
 
-                {subroutes && (
-                  <List component="div" disablePadding>
-                    {subroutes.map(({ name, subroute }) => {
-                      return (
-                        <Link
-                          style={{
-                            color: "white",
-                            opacity: pathname.startsWith(subroute) ? 1 : 0.6,
-                          }}
-                          key={subroute}
-                          href={subroute}
-                        >
-                          <ListItemButton>
-                            <ListItemText sx={{ pl: 2 }} secondary={name} />
-                          </ListItemButton>
-                        </Link>
-                      );
-                    })}
-                  </List>
-                )}
-              </div>
-            );
-          })}
-        </List>
-        <Divider />
-      </Box>
-    </Drawer>
+                  {subroutes && (
+                    <List component="div" disablePadding>
+                      {subroutes.map(({ name, subroute }) => {
+                        return (
+                          <Link
+                            style={{
+                              color: "white",
+                              opacity: pathname.startsWith(subroute) ? 1 : 0.6,
+                            }}
+                            key={subroute}
+                            href={subroute}
+                          >
+                            <ListItemButton>
+                              <ListItemText sx={{ pl: 2 }} secondary={name} />
+                            </ListItemButton>
+                          </Link>
+                        );
+                      })}
+                    </List>
+                  )}
+                </div>
+              );
+            })}
+          </List>
+          <Divider />
+        </Box>
+      </Drawer>
+    </Hidden>
   );
 }

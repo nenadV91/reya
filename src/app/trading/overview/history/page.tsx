@@ -8,7 +8,7 @@ import { useState, SyntheticEvent, useMemo, useCallback } from "react";
 import { CustomTabPanel } from "./CustomTabpanel";
 import { useAppSelector, useAppDispatch } from "@/lib/state/hooks";
 import { HistoryTable } from "./HistoryTable";
-import { TablePagination } from "@mui/material";
+import { Hidden, TablePagination } from "@mui/material";
 import { Order } from "@/lib/state/orders/ordersSlice";
 import { DeleteOrderModal } from "./DeleteOrderModal";
 import { removeOrder } from "@/lib/state/orders/ordersSlice";
@@ -85,9 +85,11 @@ export default function History() {
           px: 2,
         }}
       >
-        <Typography component={"span"} variant="body1">
-          Trade History
-        </Typography>
+        <Hidden mdDown>
+          <Typography component={"span"} variant="body1">
+            Trade History
+          </Typography>
+        </Hidden>
 
         <Tabs
           value={activeTab}
