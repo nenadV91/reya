@@ -1,3 +1,3 @@
-export default function Home() {
-  return <main>Test</main>;
+export default function Indes() {
+  return <main>Index</main>;
 }

@@ -3,12 +3,11 @@ import { Inter } from "next/font/google";
 import { StoreProvider } from "../components/StoreProvider";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
+import { Box } from "@mui/material";
 
 import "./globals.css";
 import theme from "@/theme";
 import { Navbar } from "@/components/Navbar";
-import { Sidebar } from "@/components/Sidebar";
-import { Box } from "@mui/material";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,10 +26,10 @@ export default function RootLayout({
       <body className={inter.className}>
         <StoreProvider>
           <ThemeProvider theme={theme}>
-            <Box>
-              <CssBaseline />
-              <Navbar />
-              <Sidebar />
+            <CssBaseline />
+            <Navbar />
+
+            <Box component={"main"} sx={{ flexGrow: 1, mt: "64px", p: 2 }}>
               {children}
             </Box>
           </ThemeProvider>

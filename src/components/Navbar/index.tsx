@@ -1,5 +1,6 @@
-import { AppBar, Toolbar, Typography } from "@mui/material";
+import { AppBar, Toolbar } from "@mui/material";
 import { Dashboard } from "@mui/icons-material";
+import { Links } from "./Links";
 
 export function Navbar() {
   return (
@@ -13,9 +14,8 @@ export function Navbar() {
         <Dashboard
           sx={{ color: "white", mr: 2, transform: "translateY(-2px)" }}
         />
-        <Typography variant="h6" color="text.primary">
-          Next.js App Router
-        </Typography>
+
+        <Links />
       </Toolbar>
     </AppBar>
   );
