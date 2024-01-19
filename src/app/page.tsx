@@ -1,3 +1,5 @@
+import { Box } from "@mui/material";
+
 export default function Indes() {
-  return <main>Index</main>;
+  return <Box sx={{ p: 2 }}>Index</Box>;
 }

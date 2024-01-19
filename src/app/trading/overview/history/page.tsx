@@ -6,6 +6,8 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import { useState, SyntheticEvent } from "react";
 import { CustomTabPanel } from "./CustomTabpanel";
+import { useAppSelector, useAppDispatch } from "@/lib/state/hooks";
+import { HistoryTable } from "./HistoryTable";
 
 function a11yProps(index: number) {
   return {
@@ -15,10 +17,12 @@ function a11yProps(index: number) {
 }
 
 export default function History() {
-  const [value, setValue] = useState(0);
+  const [selected, setSelected] = useState(0);
+
+  const orders = useAppSelector((state) => state.ordersReducer);
 
   const handleChange = (event: SyntheticEvent, newValue: number) => {
-    setValue(newValue);
+    setSelected(newValue);
   };
 
   return (
@@ -36,7 +40,7 @@ export default function History() {
         <Typography variant="body1">Trade History</Typography>
 
         <Tabs
-          value={value}
+          value={selected}
           onChange={handleChange}
           aria-label="Trade history tabs"
           sx={{ marginLeft: "auto", textTransform: "unset" }}
@@ -53,11 +57,12 @@ export default function History() {
           />
         </Tabs>
       </Box>
-      <CustomTabPanel value={value} index={0}>
-        Item One
+      <CustomTabPanel value={selected} index={0}>
+        <HistoryTable orders={orders} />
       </CustomTabPanel>
-      <CustomTabPanel value={value} index={1}>
-        Item Two
+
+      <CustomTabPanel value={selected} index={1}>
+        Deposits and Withdrawals
       </CustomTabPanel>
     </Box>
   );

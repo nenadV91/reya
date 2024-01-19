@@ -1,8 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import orderData from "./data.json";
 
 export type Order = {
   id: number;
   market: string;
+  pool: string;
   action: string;
   orderType: string;
   size: number;
@@ -12,7 +14,7 @@ export type Order = {
   time: number;
 };
 
-const initialState = [] as Order[];
+const initialState = orderData as Order[];
 
 export const orders = createSlice({
   name: "orders",
