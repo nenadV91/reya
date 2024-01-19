@@ -30,10 +30,8 @@ const pages = [
 export function Links() {
   const pathname = usePathname();
 
-  console.log();
-
   return (
-    <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+    <Box sx={{ flexGrow: 1, display: { md: "none", lg: "flex" } }}>
       {pages.map(({ name, route }) => (
         <Link key={route} href={route} passHref>
           <Button

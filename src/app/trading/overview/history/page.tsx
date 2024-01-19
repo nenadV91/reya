@@ -12,6 +12,8 @@ import { TablePagination } from "@mui/material";
 import { Order } from "@/lib/state/orders/ordersSlice";
 import { DeleteOrderModal } from "./DeleteOrderModal";
 import { removeOrder } from "@/lib/state/orders/ordersSlice";
+import { useAccount, useConnect } from "wagmi";
+import CircularProgress from "@mui/material/CircularProgress";
 
 function a11yProps(index: number) {
   return {
@@ -26,6 +28,9 @@ export default function History() {
   const [rowsPerPage, setRowsPerPage] = useState(3);
   const [selectedRow, setSelectedRow] = useState<null | Order>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const { isConnected, isConnecting } = useAccount();
+  const { isLoading } = useConnect();
 
   const dispatch = useAppDispatch();
 
@@ -69,7 +74,7 @@ export default function History() {
   }, [dispatch, selectedRow]);
 
   return (
-    <Box sx={{ width: "100%" }}>
+    <Box sx={{ width: "100%", overflowX: "auto" }}>
       <Box
         sx={{
           borderBottom: 1,
@@ -103,28 +108,38 @@ export default function History() {
         </Tabs>
       </Box>
       <CustomTabPanel value={activeTab} index={0}>
-        <HistoryTable
-          handleDeleteModalOpen={handleDeleteModalOpen}
-          orders={visibleRows}
-        />
+        {isLoading || isConnecting ? (
+          <CircularProgress size={14} />
+        ) : isConnected ? (
+          <Box>
+            <HistoryTable
+              handleDeleteModalOpen={handleDeleteModalOpen}
+              orders={visibleRows}
+            />
 
-        <TablePagination
-          size="small"
-          rowsPerPageOptions={[3, 6]}
-          component="div"
-          count={orders.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
+            <TablePagination
+              size="small"
+              rowsPerPageOptions={[3, 6]}
+              component="div"
+              count={orders.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+            />
 
-        <DeleteOrderModal
-          open={isModalOpen}
-          selectedValue={selectedRow}
-          onDelete={handleDeletePosition}
-          onClose={handleDeleteModalClose}
-        />
+            <DeleteOrderModal
+              open={isModalOpen}
+              selectedValue={selectedRow}
+              onDelete={handleDeletePosition}
+              onClose={handleDeleteModalClose}
+            />
+          </Box>
+        ) : (
+          <Box>
+            <Typography variant="body1">Please connect your wallet</Typography>
+          </Box>
+        )}
       </CustomTabPanel>
 
       <CustomTabPanel value={activeTab} index={1}>

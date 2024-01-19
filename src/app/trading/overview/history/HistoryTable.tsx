@@ -39,7 +39,7 @@ export function HistoryTable({ orders, handleDeleteModalOpen }: Props) {
     <TableContainer sx={{ background: "none" }} component={Paper}>
       <Table
         sx={{
-          minWidth: 650,
+          minWidth: 900,
           borderCollapse: "separate",
           borderSpacing: "0 8px",
         }}
