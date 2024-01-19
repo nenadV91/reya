@@ -81,7 +81,7 @@ export default function History() {
       <CustomTabPanel value={selected} index={0}>
         <HistoryTable orders={visibleRows} />
 
-        {/* <TablePagination
+        <TablePagination
           size="small"
           rowsPerPageOptions={[3, 6]}
           component="div"
@@ -90,7 +90,7 @@ export default function History() {
           page={page}
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
-        /> */}
+        />
       </CustomTabPanel>
 
       <CustomTabPanel value={selected} index={1}>
