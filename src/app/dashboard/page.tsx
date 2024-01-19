@@ -1,3 +1,5 @@
+import { Box } from "@mui/material";
+
 export default function Dashboard() {
-  return <main>Dashboard</main>;
+  return <Box sx={{ p: 2 }}>Dashboard</Box>;
 }

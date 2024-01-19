@@ -1,3 +1,5 @@
+import { Box } from "@mui/material";
+
 export default function Random() {
-  return <main>Random</main>;
+  return <Box sx={{ p: 2 }}>Random</Box>;
 }

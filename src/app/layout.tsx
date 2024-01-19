@@ -32,7 +32,7 @@ export default function RootLayout({
               <CssBaseline />
               <Navbar />
 
-              <Box component={"main"} sx={{ flexGrow: 1, mt: "64px", p: 2 }}>
+              <Box component={"main"} sx={{ flexGrow: 1, mt: "64px" }}>
                 {children}
               </Box>
             </ThemeProvider>

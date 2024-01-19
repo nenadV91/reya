@@ -1,3 +1,5 @@
+import { Box } from "@mui/material";
+
 export default function Collateral() {
-  return <main>Collateral</main>;
+  return <Box sx={{ p: 2 }}>Collateral</Box>;
 }

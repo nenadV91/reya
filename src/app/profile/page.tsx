@@ -1,3 +1,5 @@
+import { Box } from "@mui/material";
+
 export default function Profile() {
-  return <main>Profile</main>;
+  return <Box sx={{ p: 2 }}>Profile</Box>;
 }

@@ -1,3 +1,5 @@
+import { Box } from "@mui/material";
+
 export default function Pools() {
-  return <main>Pools</main>;
+  return <Box sx={{ p: 2 }}>Pools</Box>;
 }
