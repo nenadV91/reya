@@ -7,13 +7,14 @@ import Box from "@mui/material/Box";
 import { useState, SyntheticEvent, useMemo, useCallback } from "react";
 import { CustomTabPanel } from "./CustomTabpanel";
 import { useAppSelector, useAppDispatch } from "@/lib/state/hooks";
-import { HistoryTable } from "./HistoryTable";
-import { Hidden, TablePagination } from "@mui/material";
+import { Hidden } from "@mui/material";
 import { Order } from "@/lib/state/orders/ordersSlice";
-import { DeleteOrderModal } from "./DeleteOrderModal";
 import { removeOrder } from "@/lib/state/orders/ordersSlice";
-import { useAccount, useConnect } from "wagmi";
-import CircularProgress from "@mui/material/CircularProgress";
+import dynamic from "next/dynamic";
+
+const HistoryTabContent = dynamic(() => import("./HistoryTabContent"), {
+  ssr: false,
+});
 
 function a11yProps(index: number) {
   return {
@@ -28,9 +29,6 @@ export default function History() {
   const [rowsPerPage, setRowsPerPage] = useState(3);
   const [selectedRow, setSelectedRow] = useState<null | Order>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const { isConnected, isConnecting } = useAccount();
-  const { isLoading } = useConnect();
 
   const dispatch = useAppDispatch();
 
@@ -110,38 +108,19 @@ export default function History() {
         </Tabs>
       </Box>
       <CustomTabPanel value={activeTab} index={0}>
-        {isLoading || isConnecting ? (
-          <CircularProgress size={14} />
-        ) : isConnected ? (
-          <Box>
-            <HistoryTable
-              handleDeleteModalOpen={handleDeleteModalOpen}
-              orders={visibleRows}
-            />
-
-            <TablePagination
-              size="small"
-              rowsPerPageOptions={[3, 6]}
-              component="div"
-              count={orders.length}
-              rowsPerPage={rowsPerPage}
-              page={page}
-              onPageChange={handleChangePage}
-              onRowsPerPageChange={handleChangeRowsPerPage}
-            />
-
-            <DeleteOrderModal
-              open={isModalOpen}
-              selectedValue={selectedRow}
-              onDelete={handleDeletePosition}
-              onClose={handleDeleteModalClose}
-            />
-          </Box>
-        ) : (
-          <Box>
-            <Typography variant="body1">Please connect your wallet</Typography>
-          </Box>
-        )}
+        <HistoryTabContent
+          handleDeleteModalOpen={handleDeleteModalOpen}
+          orders={orders}
+          page={page}
+          visibleRows={visibleRows}
+          rowsPerPage={rowsPerPage}
+          isModalOpen={isModalOpen}
+          selectedRow={selectedRow}
+          handleChangePage={handleChangePage}
+          handleChangeRowsPerPage={handleChangeRowsPerPage}
+          handleDeletePosition={handleDeletePosition}
+          handleDeleteModalClose={handleDeleteModalClose}
+        />
       </CustomTabPanel>
 
       <CustomTabPanel value={activeTab} index={1}>

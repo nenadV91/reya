@@ -3,7 +3,6 @@
 import {
   AppBar,
   Box,
-  Divider,
   List,
   ListItem,
   SwipeableDrawer,
@@ -21,7 +20,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
-import ChevronRight from "@mui/icons-material/ChevronRight";
 import { colors } from "@mui/material";
 
 const pages = [
@@ -97,8 +95,8 @@ export function Navbar() {
           <ConnectButton />
 
           <Hidden lgUp>
-            <IconButton sx={{ ml: 3 }}>
-              <MenuIcon onClick={() => setOpen(true)} />
+            <IconButton onClick={() => setOpen(!open)} sx={{ ml: 3 }}>
+              <MenuIcon />
             </IconButton>
           </Hidden>
         </Box>
