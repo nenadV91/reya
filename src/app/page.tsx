@@ -1,5 +1,5 @@
-import { Box } from "@mui/material";
+import { redirect } from "next/navigation";
 
-export default function Indes() {
-  return <Box sx={{ p: 2 }}>Index</Box>;
+export default function Index() {
+  redirect("/trading/overview/history");
 }
